@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Playbook — Trilogy Care</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@400;500;600&family=Mulish:wght@600;700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Roboto Flex';font-style:normal;font-weight:100 1000;font-display:swap;src:url('fonts/RobotoFlex-VariableFont.ttf') format('truetype-variations'),url('fonts/RobotoFlex-VariableFont.ttf') format('truetype')}
+:root{--tc-teal:#007F7E;--tc-teal-dark:#005656;--tc-teal-mid:#2F9E9C;--tc-teal-50:#F0FAFA;--tc-teal-100:#D5F1F0;--tc-teal-200:#BAE8E7;--tc-navy:#1E3452;--tc-ink:#04091A;--n-700:#333;--n-600:#4D4D4D;--n-500:#666;--n-400:#808080;--n-300:#B3B3B3;--n-200:#DBDBDB;--n-150:#E0E4E8;--n-100:#F2F2F2;--n-75:#F3F4F6;--n-50:#FAFAFA;--n-0:#FFF;--success:#185A37;--warning:#8A5A00;--warning-soft:#FFDA90;--danger:#9C262A;--danger-mid:#BE373C;--danger-strong:#E02424;--font-ui:'Roboto Flex',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--font-display:'Roboto Serif',Georgia,serif;--font-brand:'Mulish',system-ui,sans-serif;--r-sm:8px;--r-md:12px;--r-lg:16px;--r-pill:999px;--shadow-sm:0 1px 3px rgba(4,9,25,0.08),0 1px 2px rgba(4,9,25,0.04);--shadow-md:0 4px 10px rgba(4,9,25,0.08),0 2px 4px rgba(4,9,25,0.04);--shadow-lg:0 10px 24px rgba(4,9,25,0.10),0 4px 8px rgba(4,9,25,0.06);--b-price-border:#B45309;--b-price-text:#7C3B00;--b-price-bg:#FFF6E0;--b-choice-border:#1E3452;--b-choice-text:#1E3452;--b-choice-bg:#EEF3FA;--b-ind-border:#005656;--b-ind-text:#004D4D;--b-ind-bg:#E5F4F4}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--n-50);color:var(--n-700);font-family:var(--font-ui);font-size:14px;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
+.view{display:none}.view.active{display:block}#showLiveCall:target~#viewPlaybook.view{display:none!important}#showLiveCall:target~#viewLiveCall.view{display:block!important}
+.topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--n-200);padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tc-ink);cursor:pointer;background:none;border:none;padding:0;font-size:inherit}
+.brand__dot{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--tc-teal),var(--tc-teal-mid));display:grid;place-items:center;color:#fff;font-family:var(--font-brand);font-weight:700;font-size:14px;box-shadow:var(--shadow-sm)}
+.brand__text{display:flex;flex-direction:column;line-height:1.2}
+.brand__name{font-family:var(--font-ui);font-weight:600;font-size:18px;color:var(--tc-ink)}
+.brand__sub{font-size:12px;color:var(--n-500);font-weight:400}
+.topbar__cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-ui);font-weight:500;font-size:14px;padding:10px 20px;background:var(--tc-teal);color:#fff;border:none;border-radius:var(--r-pill);cursor:pointer;transition:background .15s,box-shadow .15s;box-shadow:var(--shadow-sm)}
+.topbar__cta:hover{background:var(--tc-teal-dark);box-shadow:var(--shadow-md)}
+.pb-main{max-width:960px;margin:0 auto;padding:32px 24px 80px}
+.tabs{display:inline-flex;gap:4px;border-bottom:1px solid var(--n-200);margin-bottom:32px;width:100%}
+.tab{padding:12px 20px;font-size:14px;font-weight:500;color:var(--n-500);border:none;border-bottom:2px solid transparent;background:none;cursor:pointer;font-family:var(--font-ui);transition:color .15s,border-color .15s}
+.tab:hover{color:var(--n-700)}
+.tab[aria-current="true"]{color:var(--tc-teal);border-bottom-color:var(--tc-teal);font-weight:600}
+.tab-panel{display:none}.tab-panel[data-active="true"]{display:block}
+.hero{background:#fff;border:1px solid var(--n-200);border-radius:var(--r-lg);padding:56px 48px;text-align:center;box-shadow:var(--shadow-md);margin-bottom:48px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--tc-teal),var(--tc-teal-mid))}
+.hero__eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--tc-teal);margin-bottom:12px}
+.hero h1{font-family:var(--font-display);font-weight:500;font-size:48px;line-height:1.1;color:var(--tc-ink);margin:0 0 12px;letter-spacing:-0.01em}
+.hero__intro{font-size:16px;color:var(--n-600);margin:0 auto 32px;max-width:48ch;line-height:1.6}
+.hero__cta{display:inline-flex;align-items:center;gap:12px;font-family:var(--font-ui);font-weight:600;font-size:18px;padding:16px 36px;background:var(--tc-teal);color:#fff;border:none;border-radius:var(--r-pill);cursor:pointer;transition:background .15s,transform .1s,box-shadow .15s;box-shadow:var(--shadow-md)}
+.hero__cta:hover{background:var(--tc-teal-dark);transform:translateY(-1px);box-shadow:var(--shadow-lg)}
+.hero__cta:active{transform:translateY(0);box-shadow:var(--shadow-sm)}
+.hero__cta .pulse-dot{width:10px;height:10px;border-radius:50%;background:#fff;animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,0.6)}70%{box-shadow:0 0 0 12px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+.hero__foot{margin-top:16px;font-size:13px;color:var(--n-500)}
+.section-title{font-family:var(--font-ui);font-weight:700;font-size:24px;color:var(--tc-ink);margin:0 0 4px;display:flex;align-items:center;gap:16px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--n-200)}
+.section-sub{font-size:14px;color:var(--n-600);margin:0 0 24px;max-width:60ch}
+.steps{display:flex;flex-direction:column;gap:12px}
+.step{background:#fff;border:1px solid var(--n-200);border-radius:var(--r-md);padding:20px 24px;display:grid;grid-template-columns:48px 1fr auto;gap:20px;align-items:start;transition:box-shadow .15s,border-color .15s}
+.step:hover{box-shadow:var(--shadow-md);border-color:var(--tc-teal-200)}
+.step__num{width:48px;height:48px;border-radius:50%;background:var(--tc-teal);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:700}
+.step__body h3{font-weight:700;font-size:18px;margin:0 0 4px;color:var(--tc-ink)}
+.step__body .goal{font-size:13px;color:var(--n-500);margin:0 0 12px}
+.step__body ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.step__body li{font-size:14px;color:var(--n-700);display:flex;gap:10px;align-items:flex-start;line-height:1.45}
+.step__body li::before{content:'';width:16px;height:16px;border-radius:4px;border:1.5px solid var(--n-200);background:#fff;flex-shrink:0;margin-top:2px}
+.step__count{font-size:13px;font-weight:600;padding:6px 14px;background:var(--tc-teal-50);border:1px solid var(--tc-teal-200);border-radius:var(--r-pill);color:var(--tc-teal-dark);white-space:nowrap}
+.cheat-stage{background:#fff;border:1px solid var(--n-200);border-radius:var(--r-md);padding:24px;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+.cheat-stage__head{display:flex;align-items:center;gap:14px;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--n-150)}
+.cheat-stage__num{width:40px;height:40px;border-radius:50%;background:var(--tc-teal);color:#fff;display:grid;place-items:center;font-size:18px;font-weight:700;flex-shrink:0}
+.cheat-stage__title{font-weight:700;font-size:18px;margin:0;color:var(--tc-ink)}
+.cheat-stage__purpose{font-size:13px;color:var(--n-500);margin:2px 0 0}
+.cheat-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.cheat-item{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;padding:10px 12px;border:1px solid var(--n-150);border-radius:var(--r-sm);background:var(--n-50);transition:border-color .15s}
+.cheat-item:hover{border-color:var(--tc-teal-200)}
+.cheat-item__num{font-weight:700;font-size:14px;color:var(--tc-teal-dark);width:32px;height:32px;display:grid;place-items:center;background:var(--tc-teal-50);border-radius:50%}
+.cheat-item__text{font-size:14px;line-height:1.5;color:var(--n-700)}
+.cheat-tip{margin-top:14px;background:#FFF8E1;border:1px solid var(--warning-soft);border-radius:var(--r-sm);padding:12px 16px;font-size:13px;color:#6A4500;line-height:1.5;display:flex;gap:8px;align-items:flex-start}
+.cheat-tip b{color:var(--warning);white-space:nowrap}
+.topbar__left{display:flex;align-items:center;gap:16px}
+.back-link{font-size:13px;color:var(--n-500);text-decoration:none;padding:6px 14px;border:1px solid var(--n-200);border-radius:var(--r-pill);background:#fff;cursor:pointer;transition:background .12s,border-color .12s}
+.back-link:hover{background:var(--n-75);border-color:var(--n-300)}
+.topbar__right{display:flex;align-items:center;gap:12px}
+.status-chip{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:6px 14px;background:var(--tc-teal-50);border:1px solid var(--tc-teal-200);border-radius:var(--r-pill);color:var(--tc-teal-dark)}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--danger-strong);animation:pulse-red 1.2s infinite}
+@keyframes pulse-red{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(0.8)}}
+.timer{font-weight:600;font-size:20px;color:var(--tc-ink);letter-spacing:0.03em;min-width:72px;font-variant-numeric:tabular-nums}
+.end-btn{font-family:var(--font-ui);font-weight:500;font-size:13px;padding:8px 16px;background:transparent;color:var(--danger-mid);border:1px solid var(--danger-mid);border-radius:var(--r-pill);cursor:pointer;transition:background .12s,color .12s}
+.end-btn:hover{background:var(--danger-mid);color:#fff}
+.lc-main{max-width:1000px;margin:0 auto;padding:28px 24px 80px}
+.progress{display:flex;gap:8px;margin-bottom:24px}
+.step-pill{flex:1;border:1px solid var(--n-200);border-radius:var(--r-sm);padding:10px 14px;font-size:13px;font-weight:600;background:#fff;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-sm);transition:background .15s,color .15s,border-color .15s;color:var(--n-600)}
+.step-pill .num{font-size:14px;font-weight:700;width:24px;height:24px;border-radius:50%;background:var(--n-100);color:var(--n-600);display:grid;place-items:center;flex-shrink:0}
+.step-pill.active{background:var(--tc-teal);color:#fff;border-color:var(--tc-teal);box-shadow:var(--shadow-md)}
+.step-pill.active .num{background:rgba(255,255,255,0.25);color:#fff}
+.step-pill.done{background:var(--tc-teal-50);color:var(--tc-teal-dark);border-color:var(--tc-teal-200)}
+.step-pill.done .num{background:var(--tc-teal);color:#fff;font-size:12px}
+.step-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-bottom:1px solid var(--n-200);padding-bottom:16px;margin-bottom:24px}
+.step-head h1{font-weight:700;font-size:28px;line-height:1.15;margin:0;color:var(--tc-ink)}
+.counter{font-size:16px;font-weight:500;color:var(--n-500);white-space:nowrap}
+.counter b{color:var(--tc-teal);font-weight:700}
+.prompt-card{background:#fff;border:1px solid var(--n-200);border-radius:var(--r-lg);padding:40px 48px;box-shadow:var(--shadow-md);position:relative;min-height:240px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.prompt-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--tc-teal),var(--tc-teal-mid))}
+.prompt-card__eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--tc-teal);margin-bottom:12px}
+.prompt-card__quote{font-family:var(--font-display);font-size:28px;line-height:1.35;color:var(--tc-ink);font-weight:400;margin:0}
+.prompt-card__quote::before{content:'\201C';font-family:var(--font-display);font-size:64px;line-height:0;color:var(--tc-teal);opacity:.3;vertical-align:-20px;margin-right:4px}
+.prompt-card__meta{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--n-150);font-size:13px;color:var(--n-500)}
+.prompt-card--price{border-color:var(--b-price-border)}.prompt-card--price::before{background:var(--b-price-border)}.prompt-card--price .prompt-card__eyebrow{color:var(--b-price-text)}
+.prompt-card--choice{border-color:var(--b-choice-border)}.prompt-card--choice::before{background:var(--b-choice-border)}.prompt-card--choice .prompt-card__eyebrow{color:var(--b-choice-text)}
+.prompt-card--independence{border-color:var(--b-ind-border)}.prompt-card--independence::before{background:var(--b-ind-border)}.prompt-card--independence .prompt-card__eyebrow{color:var(--b-ind-text)}
+.prompt-card__bucket-banner{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:4px 12px;border-radius:var(--r-pill);margin-bottom:12px;border:1px solid currentColor;width:fit-content}
+.actions{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:16px}
+.btn{font-family:var(--font-ui);font-weight:500;font-size:14px;padding:10px 20px;border:1px solid var(--n-200);border-radius:var(--r-pill);background:#fff;color:var(--n-700);cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .12s,border-color .12s,box-shadow .12s,transform .08s;box-shadow:var(--shadow-sm)}
+.btn:hover{background:var(--n-75);border-color:var(--n-300);box-shadow:var(--shadow-md)}
+.btn:active{transform:translateY(1px);box-shadow:none}
+.btn[disabled]{opacity:.35;cursor:not-allowed}.btn[disabled]:hover{background:#fff;box-shadow:var(--shadow-sm);transform:none}
+.btn--primary{background:var(--tc-teal);color:#fff;border-color:var(--tc-teal);font-weight:600;font-size:15px;padding:12px 24px}
+.btn--primary:hover{background:var(--tc-teal-dark);border-color:var(--tc-teal-dark)}
+.btn--ghost{background:transparent;box-shadow:none;border-color:transparent;color:var(--n-500)}
+.btn--ghost:hover{background:var(--n-75);box-shadow:none;border-color:var(--n-200)}
+.kbd{display:inline-block;font-size:11px;font-weight:600;padding:2px 6px;border:1px solid var(--n-200);border-radius:4px;background:#fff;box-shadow:0 1px 0 var(--n-200);margin:0 1px;color:var(--n-600)}
+.side-grid{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:#fff;border:1px solid var(--n-200);border-radius:var(--r-md);padding:20px;box-shadow:var(--shadow-sm)}
+.panel h3{font-size:16px;font-weight:700;margin:0 0 4px;color:var(--tc-ink)}
+.panel .hint{font-size:11px;color:var(--n-500);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;margin-bottom:8px}
+.note-pad{width:100%;border:1px solid var(--n-200);border-radius:var(--r-sm);background:#fff;padding:12px 14px;min-height:100px;font-family:var(--font-ui);font-size:14px;color:var(--n-700);line-height:1.6;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s}
+.note-pad:focus{border-color:var(--tc-teal);box-shadow:0 0 0 3px rgba(0,127,126,0.12)}
+.note-pad::placeholder{color:var(--n-400)}
+.trigger-row{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--n-100)}
+.trigger-row:last-of-type{border-bottom:none}
+.trigger-num{width:28px;height:28px;border-radius:50%;background:var(--tc-teal);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700;flex-shrink:0;transition:background .15s}
+.trigger-num.empty{background:var(--n-200);color:var(--n-500)}
+.trigger-input{flex:1;border:none;border-bottom:1px solid var(--n-200);font-family:var(--font-ui);font-size:14px;color:var(--n-700);padding:6px 0;outline:none;background:transparent;transition:border-color .15s}
+.trigger-input:focus{border-color:var(--tc-teal)}
+.trigger-input::placeholder{color:var(--n-400)}
+.bucket-legend{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 12px}
+.bucket-chip{font-size:12px;font-weight:600;padding:3px 10px;border-radius:var(--r-pill);border:1px solid var(--n-200);background:#fff;color:var(--n-500)}
+.bucket-chip--price{border-color:var(--b-price-border);color:var(--b-price-text);background:var(--b-price-bg)}
+.bucket-chip--choice{border-color:var(--b-choice-border);color:var(--b-choice-text);background:var(--b-choice-bg)}
+.bucket-chip--independence{border-color:var(--b-ind-border);color:var(--b-ind-text);background:var(--b-ind-bg)}
+.bucket-picker{display:flex;gap:4px}
+.bucket-picker button{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--n-200);background:#fff;cursor:pointer;font-size:14px;line-height:1;padding:0;display:grid;place-items:center;transition:transform .08s,background .12s,border-color .12s,box-shadow .12s;opacity:.7}
+.bucket-picker button[data-b="price"]{background:var(--b-price-bg);border-color:var(--b-price-border);color:var(--b-price-text)}
+.bucket-picker button[data-b="choice"]{background:var(--b-choice-bg);border-color:var(--b-choice-border);color:var(--b-choice-text)}
+.bucket-picker button[data-b="independence"]{background:var(--b-ind-bg);border-color:var(--b-ind-border);color:var(--b-ind-text)}
+.bucket-picker button:hover{opacity:1;transform:translateY(-1px)}
+.bucket-picker button.active{opacity:1;border-width:2px;box-shadow:0 0 0 3px rgba(0,0,0,0.08),var(--shadow-sm);transform:scale(1.1)}
+.bucket-picker button.active[data-b="price"]{background:var(--b-price-bg);border-color:var(--b-price-border)}
+.bucket-picker button.active[data-b="choice"]{background:var(--b-choice-bg);border-color:var(--b-choice-border)}
+.bucket-picker button.active[data-b="independence"]{background:var(--b-ind-bg);border-color:var(--b-ind-border)}
+.bucket-picker button.suggested:not(.active){opacity:.9;box-shadow:0 0 0 2px rgba(0,0,0,0.06)}
+.primary-driver{margin-top:12px;padding:10px 14px;background:var(--n-50);border:1px solid var(--n-200);border-radius:var(--r-sm);display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:background .2s,border-color .2s}
+.primary-driver__label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--n-500)}
+.primary-driver__value{font-size:14px;font-weight:600;color:var(--n-700)}
+.primary-driver--price{background:var(--b-price-bg);border-color:var(--b-price-border)}.primary-driver--price .primary-driver__value{color:var(--b-price-text)}
+.primary-driver--choice{background:var(--b-choice-bg);border-color:var(--b-choice-border)}.primary-driver--choice .primary-driver__value{color:var(--b-choice-text)}
+.primary-driver--independence{background:var(--b-ind-bg);border-color:var(--b-ind-border)}.primary-driver--independence .primary-driver__value{color:var(--b-ind-text)}
+.tip{background:#FFF8E1;border:1px solid var(--warning-soft);border-radius:var(--r-sm);padding:12px 16px;font-size:13px;color:#6A4500;line-height:1.5;display:flex;gap:8px}
+.tip b{color:var(--warning);white-space:nowrap}
+.done-card{text-align:center;padding:48px 40px}
+.done-card h1{font-family:var(--font-display);font-size:40px;font-weight:500;color:var(--tc-teal-dark);margin:0 0 8px}
+.done-card>p{font-size:15px;color:var(--n-600);max-width:50ch;margin:0 auto;line-height:1.6}
+.big-check{width:72px;height:72px;border-radius:50%;background:var(--tc-teal);color:#fff;display:grid;place-items:center;margin:0 auto 16px;font-size:36px;box-shadow:var(--shadow-md)}
+.cta-row{display:flex;justify-content:center;gap:12px;margin-top:24px;flex-wrap:wrap}
+.summary{text-align:left;margin:28px auto 0;max-width:820px;background:#fff;border:1px solid var(--n-200);border-radius:var(--r-md);padding:20px;box-shadow:var(--shadow-sm)}
+.summary__head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:12px;flex-wrap:wrap}
+.summary__label{font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--tc-teal-dark)}
+.summary__meta{font-size:13px;color:var(--n-500);margin-top:2px}
+.btn--copy{background:var(--tc-teal);color:#fff;border:none;font-family:var(--font-ui);font-weight:600;font-size:13px;padding:8px 16px;border-radius:var(--r-sm);cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow-sm);transition:background .12s,transform .08s}
+.btn--copy:hover{background:var(--tc-teal-dark)}.btn--copy:active{transform:translateY(1px)}
+.summary__text{width:100%;min-height:200px;background:var(--n-50);border:1px solid var(--n-200);border-radius:var(--r-sm);padding:14px 16px;font-family:var(--font-ui);font-size:13px;line-height:1.6;color:var(--n-700);resize:vertical;white-space:pre-wrap}
+.summary__text:focus{outline:none;border-color:var(--tc-teal);box-shadow:0 0 0 3px rgba(0,127,126,0.12)}
+@media(max-width:780px){.pb-main{padding:20px 16px 60px}.hero{padding:36px 24px}.hero h1{font-size:32px}.hero__cta{font-size:16px;padding:14px 28px}.step{grid-template-columns:40px 1fr;padding:16px;gap:12px}.step__count{grid-column:1/-1;justify-self:start}.step__num{width:40px;height:40px;font-size:18px}.lc-main{padding:16px 14px 80px}.prompt-card{padding:28px 20px}.prompt-card__quote{font-size:22px}.side-grid{grid-template-columns:1fr}.step-head{flex-direction:column;align-items:flex-start;gap:8px}.step-head h1{font-size:22px}.progress{gap:4px;overflow-x:auto}.step-pill{font-size:11px;padding:6px 8px;white-space:nowrap}.topbar{flex-wrap:wrap;padding:8px 14px;height:auto;min-height:56px;gap:8px}.back-link{display:none}}
+.cheat-item--do{background:var(--n-75);border-color:var(--n-200)}
+.cheat-item--do .cheat-item__num{background:var(--n-200);color:var(--n-600);font-size:0}
+.cheat-item--do .cheat-item__num::after{content:'\2699';font-size:14px}
+.cheat-item--listen{background:#FFFBEB;border-color:var(--warning-soft)}
+.cheat-item--listen .cheat-item__num{background:#FFF6E0;color:#B45309;font-size:0}
+.cheat-item--listen .cheat-item__num::after{content:'\1F442';font-size:13px}
+.cheat-item--if{background:#F5F3FF;border-color:#DDD6FE}
+.cheat-item--if .cheat-item__num{background:#EDE9FE;color:#7C3AED;font-size:0}
+.cheat-item--if .cheat-item__num::after{content:'\2194';font-size:14px}
+.cheat-item--yes{background:#EAFBF0;border-color:#B9EECB}
+.cheat-item--yes .cheat-item__num{background:#D1FAE5;color:#166534;font-size:0}
+.cheat-item--yes .cheat-item__num::after{content:'\2713';font-size:14px}
+.cheat-item--no{background:#FEF1F1;border-color:#FEE2E2}
+.cheat-item--no .cheat-item__num{background:#FEE2E2;color:#9C262A;font-size:0}
+.cheat-item--no .cheat-item__num::after{content:'\2717';font-size:14px}
+.cheat-item__tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:var(--r-pill);margin-bottom:4px}
+.cheat-item__tag--say{background:var(--tc-teal-100);color:var(--tc-teal-dark)}
+.cheat-item__tag--do{background:var(--n-100);color:var(--n-600)}
+.cheat-item__tag--listen{background:#FFF6E0;color:#92400E}
+.cheat-item__tag--if{background:#EDE9FE;color:#6D28D9}
+.script-divider{display:flex;align-items:center;gap:12px;padding:6px 0;margin:4px 0;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tc-teal)}
+.script-divider::before,.script-divider::after{content:'';flex:1;height:1px;background:var(--tc-teal-200)}
+.bucket-card{padding:14px 16px;border-radius:var(--r-sm);margin-bottom:8px;font-size:14px;line-height:1.6;color:var(--n-700)}
+.bucket-card:last-child{margin-bottom:0}
+.bucket-card b{font-weight:700;display:block;margin-bottom:4px;font-size:13px}
+.bucket-card--price{background:var(--b-price-bg);border:1px solid var(--b-price-border)}
+.bucket-card--price b{color:var(--b-price-text)}
+.bucket-card--choice{background:var(--b-choice-bg);border:1px solid var(--b-choice-border)}
+.bucket-card--choice b{color:var(--b-choice-text)}
+.bucket-card--ind{background:var(--b-ind-bg);border:1px solid var(--b-ind-border)}
+.bucket-card--ind b{color:var(--b-ind-text)}
+.bucket-group{background:#fff;border:1px solid var(--n-200);border-radius:var(--r-sm);padding:14px;margin:8px 0}
+.bucket-group__title{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n-500);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.bucket-group__title::after{content:'';flex:1;height:1px;background:var(--n-150)}
+
+/* ===== Call Scripts tab ===== */
+.script-intro{font-size:14px;color:var(--n-600);margin:0 0 28px;max-width:64ch;line-height:1.6}
+.script-stage{background:#fff;border:1px solid var(--n-200);border-radius:var(--r-lg);margin-bottom:20px;box-shadow:var(--shadow-sm);overflow:hidden}
+.script-stage__head{display:flex;align-items:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--n-150);background:var(--n-50)}
+.script-stage__num{width:40px;height:40px;border-radius:50%;background:var(--tc-teal);color:#fff;display:grid;place-items:center;font-size:18px;font-weight:700;flex-shrink:0}
+.script-stage__title{font-weight:700;font-size:18px;margin:0;color:var(--tc-ink)}
+.script-stage__purpose{font-size:13px;color:var(--n-500);margin:2px 0 0}
+.script-stage__body{padding:20px 24px;display:flex;flex-direction:column;gap:10px}
+
+/* Script line — boxed cards */
+.script-line{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:var(--r-sm);border:1px solid var(--tc-teal-200);background:var(--tc-teal-50);border-left:4px solid var(--tc-teal);transition:box-shadow .15s}
+.script-line:hover{box-shadow:var(--shadow-sm)}
+.script-line--do{background:var(--n-75);border-color:var(--n-200);border-left-color:var(--n-400)}
+.script-line--listen{background:#FFFBEB;border-color:var(--warning-soft);border-left-color:#D97706}
+.script-line--if{background:#F5F3FF;border-color:#DDD6FE;border-left-color:#7C3AED}
+.script-line--yes{background:#ECFDF5;border-color:#A7F3D0;border-left-color:#059669}
+.script-line--no{background:#FEF2F2;border-color:#FECACA;border-left-color:#DC2626}
+
+/* Script labels — pill badges */
+.script-label{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap;flex-shrink:0;margin-top:1px}
+.script-label--say{background:var(--tc-teal-100);color:var(--tc-teal-dark)}
+.script-label--do{background:var(--n-200);color:var(--n-600)}
+.script-label--listen{background:#FEF3C7;color:#92400E}
+.script-label--if{background:#EDE9FE;color:#6D28D9}
+.script-label--yes{background:#D1FAE5;color:#065F46;font-size:12px}
+.script-label--no{background:#FEE2E2;color:#991B1B;font-size:12px}
+
+/* Script text */
+.script-text{font-size:14px;line-height:1.55;color:var(--n-700)}
+.script-text q{font-style:normal;color:var(--tc-ink);font-weight:500}
+.script-line--yes .script-text{color:#065F46}
+.script-line--yes .script-text q{color:#065F46;font-weight:600}
+.script-line--no .script-text{color:#991B1B}
+.script-line--no .script-text q{color:#991B1B;font-weight:600}
+
+/* Transition dividers */
+.script-transition{display:flex;align-items:center;gap:12px;padding:8px 0;margin:6px 0;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tc-teal)}
+.script-transition::before,.script-transition::after{content:'';flex:1;height:1px;background:var(--tc-teal-200)}
+
+/* Bucket variant note boxes */
+.script-bucket-note{background:var(--n-50);border:1px solid var(--n-200);border-radius:var(--r-sm);padding:16px;margin:2px 0}
+.script-bucket-note__title{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n-500);margin:0 0 12px}
+.bucket-variant{padding:12px 14px;border-radius:var(--r-sm);margin-bottom:8px;font-size:14px;line-height:1.55;color:var(--n-700)}
+.bucket-variant:last-child{margin-bottom:0}
+.bucket-variant b{font-weight:700;display:inline;margin-right:4px}
+.bucket-variant--price{background:var(--b-price-bg);border:1px solid var(--b-price-border)}
+.bucket-variant--price b{color:var(--b-price-text)}
+.bucket-variant--choice{background:var(--b-choice-bg);border:1px solid var(--b-choice-border)}
+.bucket-variant--choice b{color:var(--b-choice-text)}
+.bucket-variant--independence{background:var(--b-ind-bg);border:1px solid var(--b-ind-border)}
+.bucket-variant--independence b{color:var(--b-ind-text)}
+
+@media(max-width:780px){.script-stage__body{padding:14px 16px;gap:8px}.script-line{padding:10px 12px;gap:8px;flex-wrap:wrap}.script-label{font-size:10px;padding:3px 8px}.script-bucket-note{padding:12px}}
+</style>
+</head>
+<body>
+<div id="showLiveCall" style="position:absolute;visibility:hidden;height:0;overflow:hidden"></div>
+
+<div id="viewPlaybook" class="view active">
+<header class="topbar">
+  <div class="brand" id="pbBrand">
+    <div class="brand__dot">TC</div>
+    <div class="brand__text"><span class="brand__name">Sales Playbook</span><span class="brand__sub">Trilogy Care</span></div>
+  </div>
+  <a href="#showLiveCall" class="topbar__cta" id="topbarStartBtn" style="text-decoration:none"><span>&#x1F4DE;</span> <span>Start a live call</span></a>
+</header>
+<main class="pb-main">
+  <div class="tabs" role="tablist">
+    <button class="tab" data-tab="home" aria-current="true">Home</button>
+    <button class="tab" data-tab="cheat">Question cheat sheet</button>
+    <button class="tab" data-tab="scripts">Call scripts</button>
+  </div>
+  <section class="tab-panel" data-tab="home" data-active="true">
+    <section class="hero">
+      <div class="hero__eyebrow">Ready when you are</div>
+      <h1>Start a live call.</h1>
+      <p class="hero__intro">Step-by-step prompts from hello to close. Click below and we'll walk you through every question.</p>
+      <a href="#showLiveCall" class="hero__cta" id="heroStartBtn" style="text-decoration:none"><span class="pulse-dot"></span> Start a live call</a>
+      <div class="hero__foot">Opens the step-through flow &middot; 20 prompts across 4 stages</div>
+    </section>
+    <section>
+      <h2 class="section-title">The playbook</h2>
+      <p class="section-sub">The four stages of every sales conversation. Keep them in your head &mdash; the live call walks you through the prompts for each.</p>
+      <div class="steps">
+        <article class="step"><div class="step__num">1</div><div class="step__body"><h3>Introduction</h3><p class="goal">Build rapport and set the tone.</p><ul><li>Greet warmly &mdash; use their name</li><li>Introduce yourself and Trilogy Care</li><li>State why you're calling (1&ndash;2 sentences)</li><li>Ask permission to continue with a few questions</li></ul></div><span class="step__count">5 prompts</span></article>
+        <article class="step"><div class="step__num">2</div><div class="step__body"><h3>Discover their needs</h3><p class="goal">Uncover the 3 things that matter most.</p><ul><li>Ask about their current care situation</li><li>Identify their biggest challenge right now</li><li>Understand the impact on their daily life</li><li>Find out what 'ideal care' looks like for them</li><li>Clarify their timeline and urgency</li></ul></div><span class="step__count">6 prompts</span></article>
+        <article class="step"><div class="step__num">3</div><div class="step__body"><h3>Present the solution</h3><p class="goal">Match the solution to their top triggers.</p><ul><li>Recap the 3 triggers back to them</li><li>Explain how Trilogy Care solves trigger #1</li><li>Highlight relevant services or packages</li><li>Check they understand and agree</li></ul></div><span class="step__count">6 prompts</span></article>
+        <article class="step"><div class="step__num">4</div><div class="step__body"><h3>Close the conversation</h3><p class="goal">Secure the next step.</p><ul><li>Ask a clear closing question</li><li>Pause &mdash; let them respond</li><li>Handle any objections calmly</li><li>Confirm agreed next steps and timeline</li></ul></div><span class="step__count">3 prompts</span></article>
+      </div>
+    </section>
+  </section>
+  <section class="tab-panel" data-tab="cheat">
+    <h2 class="section-title">Question cheat sheet</h2>
+    <p class="section-sub">Every prompt question, grouped by stage. Skim before a call, or keep open in another tab.</p>
+    <div class="cheat-stage"><div class="cheat-stage__head"><div class="cheat-stage__num">1</div><div><h3 class="cheat-stage__title">Opening the call</h3><p class="cheat-stage__purpose">Build trust quickly and get permission to continue.</p></div></div><ul class="cheat-list"><li class="cheat-item"><div class="cheat-item__num">1</div><div class="cheat-item__text">&ldquo;Hi [Name], my name is ___ from the Trilogy Care onboarding team. How are you today?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">2</div><div class="cheat-item__text">&ldquo;I'm calling because [referral source / reason]. I'd love to see how we can help.&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">3</div><div class="cheat-item__text">&ldquo;Before we get started, can I ask &mdash; are you looking into this for yourself, or for a family member?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">4</div><div class="cheat-item__text">&ldquo;What prompted you to look into home care support at this stage?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">5</div><div class="cheat-item__text">&ldquo;Have you had any experience with home care services before?&rdquo;</div></li></ul><div class="cheat-tip"><b>Tip:</b> Mirror their energy. If they sound tired or stressed, slow down and soften your tone. If they're upbeat, match it.</div></div>
+    <div class="cheat-stage"><div class="cheat-stage__head"><div class="cheat-stage__num">2</div><div><h3 class="cheat-stage__title">Discovering their needs</h3><p class="cheat-stage__purpose">Understand their situation and uncover the 3 key triggers.</p></div></div><ul class="cheat-list"><li class="cheat-item"><div class="cheat-item__num">1</div><div class="cheat-item__text">&ldquo;Do you currently have a Package, or are you waiting for one?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">2</div><div class="cheat-item__text">&ldquo;What's the biggest challenge you (or your loved one) are facing right now?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">3</div><div class="cheat-item__text">&ldquo;How is that affecting your quality of life or independence?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">4</div><div class="cheat-item__text">&ldquo;What does 'good care' look like to you? If everything went perfectly, what would change?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">5</div><div class="cheat-item__text">&ldquo;Are you receiving any other services at the moment?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">6</div><div class="cheat-item__text">&ldquo;How soon are you hoping to get support in place?&rdquo;</div></li></ul><div class="cheat-tip"><b>Tip:</b> Listen more than you talk here. Write down their exact words &mdash; you'll use them when presenting the solution.</div></div>
+    <div class="cheat-stage"><div class="cheat-stage__head"><div class="cheat-stage__num">3</div><div><h3 class="cheat-stage__title">Presenting the solution</h3><p class="cheat-stage__purpose">Show them you listened and connect Trilogy Care to what matters most.</p></div></div><ul class="cheat-list"><li class="cheat-item"><div class="cheat-item__num">1</div><div class="cheat-item__text">&ldquo;So if I've understood correctly, the three things that matter most to you are [trigger 1], [trigger 2], and [trigger 3] &mdash; is that right?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">2</div><div class="cheat-item__text">&ldquo;Let me explain how we help with [trigger #1] specifically&hellip;&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">3</div><div class="cheat-item__text">&ldquo;One thing that makes Trilogy Care different is [key differentiator]. Would that be helpful for you?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">4</div><div class="cheat-item__text">&ldquo;We have clients in similar situations who've found that [relevant service] made a real difference.&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">5</div><div class="cheat-item__text">&ldquo;Does this sound like the kind of support you've been looking for?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">6</div><div class="cheat-item__text">&ldquo;Is there anything I've missed, or something else that's important to you?&rdquo;</div></li></ul><div class="cheat-tip"><b>Tip:</b> Repeat their own words back to them &mdash; it shows you were genuinely listening, not running a script.</div></div>
+    <div class="cheat-stage"><div class="cheat-stage__head"><div class="cheat-stage__num">4</div><div><h3 class="cheat-stage__title">Closing the conversation</h3><p class="cheat-stage__purpose">Secure a clear next step &mdash; sign-up, home visit, or follow-up call.</p></div></div><ul class="cheat-list"><li class="cheat-item"><div class="cheat-item__num">1</div><div class="cheat-item__text">&ldquo;Based on everything we've discussed, I think we can really help. Would you like to get started?&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">2</div><div class="cheat-item__text">&ldquo;The next step to onboarding is for me to take your details down. I'll set up your profile and book in the care plan meeting.&rdquo;</div></li><li class="cheat-item"><div class="cheat-item__num">3</div><div class="cheat-item__text">&ldquo;Is there anyone else involved in this decision &mdash; a son, daughter, or partner &mdash; who'd like to be part of the conversation?&rdquo;</div></li></ul><div class="cheat-tip"><b>Tip:</b> Don't rush the close. Ask, then pause. Silence is your friend &mdash; let them process and respond in their own time.</div></div>
+  </section>
+
+  <section class="tab-panel" data-tab="scripts">
+    <h2 class="section-title">Call scripts</h2>
+    <p class="script-intro">Word-for-word scripts you can follow on a live call. Read the teal lines out loud, follow the grey action cues, and listen for the amber triggers. Adapt the words to sound natural &mdash; these are a guide, not a robot script.</p>
+
+    <!-- ===== STAGE 1 ===== -->
+    <div class="script-stage">
+      <div class="script-stage__head">
+        <div class="script-stage__num">1</div>
+        <div><h3 class="script-stage__title">Opening the call</h3><p class="script-stage__purpose">Build rapport and get permission to continue &middot; ~2 min</p></div>
+      </div>
+      <div class="script-stage__body">
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Hi [Name], this is [Your Name] calling from Trilogy Care. How are you going today?</q></div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Thanks for taking my call. I&rsquo;m reaching out because [referral source / reason they enquired]. I&rsquo;d love to have a quick chat about how we might be able to help &mdash; does that sound okay?</q></div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Before we dive in &mdash; can I ask, are you looking into this for yourself, or for a family member?</q></div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>And what was it that prompted you to start looking into home care support at this point?</q></div>
+        </div>
+        <div class="script-line script-line--listen">
+          <span class="script-label script-label--listen">Listen for</span>
+          <div class="script-text">Their first trigger. Write down their exact words &mdash; you&rsquo;ll feed these back in Stage 3.</div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Have you had any experience with home care services before &mdash; either with another provider or through the government?</q></div>
+        </div>
+        <div class="script-line script-line--if">
+          <span class="script-label script-label--if">If yes</span>
+          <div class="script-text">Ask: <q>What worked well, and what didn&rsquo;t?</q> &mdash; this often reveals their biggest pain point.</div>
+        </div>
+        <div class="script-line script-line--if">
+          <span class="script-label script-label--if">If no</span>
+          <div class="script-text">Say: <q>No worries at all &mdash; that&rsquo;s completely normal. I&rsquo;ll walk you through how it all works.</q></div>
+        </div>
+        <div class="script-transition">Transition to discovery</div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>That&rsquo;s really helpful, thank you. I&rsquo;d love to ask a few more questions so I can understand exactly what would work best for you.</q></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STAGE 2 ===== -->
+    <div class="script-stage">
+      <div class="script-stage__head">
+        <div class="script-stage__num">2</div>
+        <div><h3 class="script-stage__title">Discovering their needs</h3><p class="script-stage__purpose">Uncover the 3 key triggers that matter most &middot; ~5 min</p></div>
+      </div>
+      <div class="script-stage__body">
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Do you currently have a Home Care Package, or are you still waiting for one to come through?</q></div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>What would you say is the biggest challenge you&rsquo;re facing right now with day-to-day care?</q></div>
+        </div>
+        <div class="script-line script-line--listen">
+          <span class="script-label script-label--listen">Listen for</span>
+          <div class="script-text">Value bucket keywords: <em>cost, fees, afford</em> = Price &middot; <em>choose, pick, my own carer</em> = Choice &middot; <em>stay at home, independence, routine</em> = Independence. Write down their exact words.</div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>And how is that affecting your quality of life &mdash; or your independence at home?</q></div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>If everything could go perfectly from here, what would good care actually look like for you?</q></div>
+        </div>
+        <div class="script-line script-line--listen">
+          <span class="script-label script-label--listen">Listen for</span>
+          <div class="script-text">This is the gold question. Let them talk. Their answer often reveals their primary driver &mdash; don&rsquo;t interrupt.</div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Are you receiving any other services at the moment &mdash; from another provider, or through the Commonwealth Home Support Programme?</q></div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>And how soon are you hoping to get support in place? Is there any urgency?</q></div>
+        </div>
+        <div class="script-transition">Transition to solution</div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Okay, I think I&rsquo;ve got a really clear picture of what matters to you. Let me tell you how we can help with exactly what you&rsquo;ve described.</q></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STAGE 3 ===== -->
+    <div class="script-stage">
+      <div class="script-stage__head">
+        <div class="script-stage__num">3</div>
+        <div><h3 class="script-stage__title">Presenting the solution</h3><p class="script-stage__purpose">Match Trilogy Care to their top triggers &middot; ~5 min</p></div>
+      </div>
+      <div class="script-stage__body">
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>So if I&rsquo;ve understood you correctly, the three things that matter most are: [trigger 1], [trigger 2], and [trigger 3]. Have I got that right?</q></div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Let me start with [trigger #1], because that seemed like the most important one for you&hellip;</q></div>
+        </div>
+        <div class="script-bucket-note">
+          <div class="script-bucket-note__title">Pick the line that matches their primary driver</div>
+          <div class="bucket-variant bucket-variant--price"><b>$ Price:</b> <q>One thing that sets us apart is that we have some of the lowest care management fees in Australia. That means more of your package goes towards actual care &mdash; not admin and overheads. On an average package, our clients typically free up extra hours of care per fortnight just by switching.</q></div>
+          <div class="bucket-variant bucket-variant--choice"><b>&#x2726; Choice:</b> <q>With Trilogy Care, you get to pick your own carers. We don&rsquo;t just send whoever&rsquo;s available &mdash; you build a team of people you actually know and trust. You also choose which services go into your plan and can change them whenever you need to.</q></div>
+          <div class="bucket-variant bucket-variant--independence"><b>&#x2302; Independence:</b> <q>Our whole model is designed to keep you comfortable and in control at home. You decide what services you need, when you need them, and who provides them. We work around your routine, not the other way around.</q></div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>We&rsquo;ve had a lot of clients in similar situations who found that [relevant service] made a real difference. It&rsquo;s something we hear often.</q></div>
+        </div>
+        <div class="script-bucket-note">
+          <div class="script-bucket-note__title">Additional proof points &mdash; use 1 or 2 that fit</div>
+          <div class="bucket-variant bucket-variant--price"><b>$ Price:</b> <q>There are no exit fees, no hidden admin charges, no daily fees. You only pay for care that&rsquo;s actually delivered.</q></div>
+          <div class="bucket-variant bucket-variant--choice"><b>&#x2726; Choice:</b> <q>We support self-managed care, which means you stay in the driver&rsquo;s seat but we handle the paperwork and compliance behind the scenes.</q></div>
+          <div class="bucket-variant bucket-variant--independence"><b>&#x2302; Independence:</b> <q>Families tell us the biggest relief is knowing Mum or Dad can stay home safely, without losing their independence or dignity.</q></div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Does that sound like the kind of support you&rsquo;ve been looking for?</q></div>
+        </div>
+        <div class="script-line script-line--if">
+          <span class="script-label script-label--if">If hesitant</span>
+          <div class="script-text"><q>Is there anything else that&rsquo;s important to you that I haven&rsquo;t covered? I want to make sure we&rsquo;re on the same page.</q></div>
+        </div>
+        <div class="script-transition">Transition to close</div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Great. Well, I think we&rsquo;d be a really good fit for what you need. Let me tell you what the next step looks like.</q></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STAGE 4 ===== -->
+    <div class="script-stage">
+      <div class="script-stage__head">
+        <div class="script-stage__num">4</div>
+        <div><h3 class="script-stage__title">Closing the conversation</h3><p class="script-stage__purpose">Secure the next step &mdash; keep it simple and confident &middot; ~2 min</p></div>
+      </div>
+      <div class="script-stage__body">
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Based on everything we&rsquo;ve talked about, I genuinely think we can help. Would you like to get the ball rolling?</q></div>
+        </div>
+        <div class="script-line script-line--yes">
+          <span class="script-label script-label--yes">If yes</span>
+          <div class="script-text"><q>Wonderful. The next step is really simple &mdash; I&rsquo;ll just take down a few details, set up your profile, and book in your care plan meeting. It usually takes about five minutes.</q></div>
+        </div>
+        <div class="script-line script-line--if">
+          <span class="script-label script-label--if">If hesitant</span>
+          <div class="script-text"><q>Totally understand. There&rsquo;s no pressure at all. Would it help if I sent through some information you can look over, and we have another chat in a few days?</q></div>
+        </div>
+        <div class="script-line script-line--if">
+          <span class="script-label script-label--if">If they need to talk to family</span>
+          <div class="script-text"><q>Of course. Would it help if I gave you a quick summary you can share with them? I&rsquo;m also happy to jump on a call with everyone together.</q></div>
+        </div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Is there anyone else involved in this decision &mdash; a son, daughter, or partner &mdash; who&rsquo;d like to be part of the conversation?</q></div>
+        </div>
+        <div class="script-transition">Wrap up</div>
+        <div class="script-line">
+          <span class="script-label script-label--say">Say</span>
+          <div class="script-text"><q>Thank you so much for your time today, [Name]. I&rsquo;ll [confirmed next step] and you&rsquo;ll hear from us by [timeframe]. If any questions come up before then, you can call us any time.</q></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cheat-tip" style="margin-top:8px"><b>Remember:</b> These scripts are a guide. The best calls sound like a conversation, not a checklist. Use their name, mirror their words, and let silences do the heavy lifting.</div>
+  </section>
+</main>
+</div>
+
+<div id="viewLiveCall" class="view">
+<header class="topbar">
+  <div class="topbar__left">
+    <a href="#" class="brand" id="lcBrand" style="text-decoration:none"><div class="brand__dot">TC</div><span class="brand__name">Live call</span></a>
+    <a href="#" class="back-link" id="backBtn">&larr; Back to playbook</a>
+  </div>
+  <div class="topbar__right">
+    <span class="status-chip"><span class="live-dot"></span> Live</span>
+    <div class="timer" id="timer">00:00</div>
+    <button class="end-btn" id="endBtn">End call</button>
+  </div>
+</header>
+<main class="lc-main">
+  <div class="progress" id="progress"></div>
+  <div class="step-head"><div><h1 id="stepTitle">Step 1 &middot; Opening the call</h1></div><div class="counter" id="counter">Prompt <b>1</b> of 5</div></div>
+  <div id="promptArea"></div>
+  <div class="actions" id="actions">
+    <button class="btn btn--ghost" id="prevBtn">&larr; Previous</button>
+    <div style="flex:1;text-align:center;font-size:12px;color:var(--n-500)">use <span class="kbd">&larr;</span> <span class="kbd">&rarr;</span> or <span class="kbd">Space</span> to step</div>
+    <button class="btn btn--primary" id="nextBtn">Next prompt &rarr;</button>
+  </div>
+  <div class="side-grid" id="sideGrid">
+    <div class="panel" style="grid-column:1/-1">
+      <div class="hint">3 Key triggers &middot; tag the value bucket</div>
+      <h3>Their biggest drivers</h3>
+      <div class="bucket-legend"><span class="bucket-chip bucket-chip--price">Price</span><span class="bucket-chip bucket-chip--choice">Choice</span><span class="bucket-chip bucket-chip--independence">Independence</span></div>
+      <div class="trigger-row"><div class="trigger-num" id="tn1">1</div><input class="trigger-input" id="t1" placeholder="e.g. wants more hours for her dollar"/><div class="bucket-picker" data-idx="0"><button type="button" data-b="price" title="Price">$</button><button type="button" data-b="choice" title="Choice">&#x2726;</button><button type="button" data-b="independence" title="Independence">&#x2302;</button></div></div>
+      <div class="trigger-row"><div class="trigger-num empty" id="tn2">2</div><input class="trigger-input" id="t2" placeholder="e.g. wants to pick her own carers"/><div class="bucket-picker" data-idx="1"><button type="button" data-b="price" title="Price">$</button><button type="button" data-b="choice" title="Choice">&#x2726;</button><button type="button" data-b="independence" title="Independence">&#x2302;</button></div></div>
+      <div class="trigger-row"><div class="trigger-num empty" id="tn3">3</div><input class="trigger-input" id="t3" placeholder="e.g. wants to stay at home, in control"/><div class="bucket-picker" data-idx="2"><button type="button" data-b="price" title="Price">$</button><button type="button" data-b="choice" title="Choice">&#x2726;</button><button type="button" data-b="independence" title="Independence">&#x2302;</button></div></div>
+      <div class="primary-driver" id="primaryDriver"><div class="primary-driver__label">Primary driver</div><div class="primary-driver__value" id="primaryDriverValue">&mdash; tag a bucket above to personalise Step 3 &mdash;</div></div>
+    </div>
+    <div class="panel" style="grid-column:1/-1"><div class="hint">Your notes &middot; their exact words</div><textarea class="note-pad" id="notes" placeholder="Type what they say..."></textarea></div>
+    <div class="panel" style="grid-column:1/-1"><div class="tip" id="tipBox"><b>Tip:</b> <span>Mirror their energy. If they sound tired or stressed, slow down and soften your tone. If they're upbeat, match it.</span></div></div>
+  </div>
+</main>
+</div>
+
+<script>
+// ZOHO CRM CONFIG
+function parseLeadId(input){if(!input)return null;var m=input.match(/Leads\/(\d+)/);if(m)return m[1];m=input.match(/^(\d{15,25})$/);if(m)return m[1];return null}
+
+function saveNoteToZoho(leadId,noteTitle,noteContent,cb){
+  fetch('/api/zoho/notes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lead_id:leadId,note_title:noteTitle,note_content:noteContent})})
+  .then(function(r){return r.json()})
+  .then(function(d){if(d.success&&d.data&&d.data.data&&d.data.data[0]&&d.data.data[0].status==='success')cb(null,d.data.data[0]);else cb(d.error||'Failed to create note')})
+  .catch(function(e){cb(e.message||'Network error')})
+}
+
+// VIEW SWITCHING — all via addEventListener, no inline handlers
+var timerInterval=null;
+function startLiveCall(){location.hash='showLiveCall';document.getElementById('viewPlaybook').classList.remove('active');document.getElementById('viewLiveCall').classList.add('active');resetCallState();window.scrollTo(0,0)}
+function backToPlaybook(){if(pos>0&&pos<TOTAL){if(!confirm('Leave this call? Your progress will be lost.'))return}try{history.replaceState(null,'',location.pathname)}catch(e){location.hash=''}document.getElementById('viewLiveCall').classList.remove('active');document.getElementById('viewPlaybook').classList.add('active');if(timerInterval){clearInterval(timerInterval);timerInterval=null}window.scrollTo(0,0)}
+document.getElementById('topbarStartBtn').addEventListener('click',function(e){e.preventDefault();startLiveCall()});
+document.getElementById('heroStartBtn').addEventListener('click',function(e){e.preventDefault();startLiveCall()});
+document.getElementById('lcBrand').addEventListener('click',function(e){e.preventDefault();backToPlaybook()});
+document.getElementById('backBtn').addEventListener('click',function(e){e.preventDefault();backToPlaybook()});
+window.addEventListener('hashchange',function(){if(location.hash==='#showLiveCall'){document.getElementById('viewPlaybook').classList.remove('active');document.getElementById('viewLiveCall').classList.add('active');if(!timerInterval)resetCallState();window.scrollTo(0,0)}else{document.getElementById('viewLiveCall').classList.remove('active');document.getElementById('viewPlaybook').classList.add('active');if(timerInterval){clearInterval(timerInterval);timerInterval=null}window.scrollTo(0,0)}});
+
+// TABS
+document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.setAttribute('aria-current',x===t?'true':'false')});document.querySelectorAll('.tab-panel').forEach(function(p){p.setAttribute('data-active',p.dataset.tab===t.dataset.tab?'true':'false')});window.scrollTo({top:0,behavior:'smooth'})})});
+
+// DATA
+var STEPS=[{title:"Step 1 \u00b7 Opening the call",tip:"Mirror their energy. If they sound tired or stressed, slow down and soften your tone. If they\u2019re upbeat, match it.",prompts:[{eyebrow:"Opening line \u2014 say this first",text:"Hi [Name], my name is ___ from the Trilogy Care onboarding team. How are you today?"},{eyebrow:"Set the reason",text:"I\u2019m calling because [referral source / reason]. I\u2019d love to see how we can help."},{eyebrow:"Who is it for",text:"Before we get started, can I ask \u2014 are you looking into this for yourself, or for a family member?"},{eyebrow:"What prompted it",text:"What prompted you to look into home care support at this stage?"},{eyebrow:"Prior experience",text:"Have you had any experience with home care services before?"}]},{title:"Step 2 \u00b7 Discovering their needs",tip:"Listen more than you talk here. Write down their exact words \u2014 you\u2019ll use these when presenting the solution.",prompts:[{eyebrow:"Current situation",text:"Do you currently have a Package, or are you waiting for one?"},{eyebrow:"Biggest challenge",text:"What\u2019s the biggest challenge you (or your loved one) are facing right now?"},{eyebrow:"Impact",text:"How is that affecting your quality of life or independence?"},{eyebrow:"Ideal picture",text:"What does \u2018good care\u2019 look like to you? If everything went perfectly, what would change?"},{eyebrow:"Other services",text:"Are you receiving any other services at the moment?"},{eyebrow:"Timeline",text:"How soon are you hoping to get support in place?"}]},{title:"Step 3 \u00b7 Presenting the solution",tip:"Repeat their own words back to them \u2014 it shows you were genuinely listening, not running a script.",prompts:[{eyebrow:"Recap their triggers",text:"So if I\u2019ve understood correctly, the three things that matter most to you are [trigger 1], [trigger 2], and [trigger 3] \u2014 is that right?"},{eyebrow:"Map to trigger #1",text:"Let me explain how we help with [trigger #1] specifically\u2026"},{eyebrow:"Differentiator",text:"One thing that makes Trilogy Care different is [key differentiator]. Would that be helpful for you?"},{eyebrow:"Social proof",text:"We have clients in similar situations who\u2019ve found that [relevant service] made a real difference."},{eyebrow:"Confirm fit",text:"Does this sound like the kind of support you\u2019ve been looking for?"},{eyebrow:"Anything missed",text:"Is there anything I\u2019ve missed, or something else that\u2019s important to you?"}],promptsByBucket:{price:[{eyebrow:"Recap their triggers",text:"So if I\u2019ve heard you right, getting the most out of every dollar matters \u2014 you want more care hours, not more fees. Is that fair?"},{eyebrow:"Low-fee anchor",text:"Trilogy Care has one of the lowest care management fees in Australia \u2014 which means more of your package goes straight to services you actually use."},{eyebrow:"Show the maths",text:"On an average package, our clients typically free up [X] extra hours of care per fortnight just by switching. Would you like me to run the numbers on yours?"},{eyebrow:"No hidden fees",text:"There are no exit fees, no admin fees, no daily fees. You only pay for care delivered \u2014 does that sound different to what you\u2019ve seen elsewhere?"},{eyebrow:"Value vs cheap",text:"Cheapest isn\u2019t always best \u2014 but we believe you shouldn\u2019t pay premium fees for basic admin. Is value for money a big part of what you\u2019re looking for?"},{eyebrow:"Confirm fit",text:"If I could show you how to get more hours of care for the same package \u2014 would that be the kind of support you\u2019re after?"}],choice:[{eyebrow:"Recap their triggers",text:"So if I\u2019ve understood correctly, being able to choose who comes into your home and what they do matters most \u2014 is that right?"},{eyebrow:"Choose your own workers",text:"With Trilogy Care you pick your own carers \u2014 we don\u2019t send whoever\u2019s on shift. You build a consistent team you actually trust. How does that sit with you?"},{eyebrow:"Choose your own services",text:"You decide what services go into your plan \u2014 cleaning, gardening, nursing, social support \u2014 and you can change them whenever life changes. Is that flexibility important?"},{eyebrow:"Self-management support",text:"We support self-managed care, which means you stay in the driver\u2019s seat but we handle the paperwork behind the scenes. Does that appeal?"},{eyebrow:"Social proof",text:"We have clients who\u2019d left bigger providers because they had no say. With us they finally chose their own team \u2014 and haven\u2019t looked back."},{eyebrow:"Confirm fit",text:"Does having full choice over your carers and services sound like the kind of support you\u2019ve been looking for?"}],independence:[{eyebrow:"Recap their triggers",text:"So the most important thing for you is staying independent and in control at home \u2014 is that right?"},{eyebrow:"Stay at home longer",text:"Our whole model is built around keeping you comfortable and safe in your own home \u2014 how important is that to you right now?"},{eyebrow:"You stay in control",text:"You stay in control of your package \u2014 which carers, which days, which services. We\u2019re here when you want us, not running the show."},{eyebrow:"Dignity and routine",text:"We work around your routine, not the other way around. Your day looks how you want it to look. Does that feel like the fit you\u2019re after?"},{eyebrow:"Family peace of mind",text:"Families tell us the biggest relief is knowing Mum or Dad can stay home, safely, without losing independence. Is that part of what you\u2019re weighing up?"},{eyebrow:"Confirm fit",text:"Does this sound like the right kind of support to help you stay independent at home?"}]}},{title:"Step 4 \u00b7 Closing the conversation",tip:"Don\u2019t rush the close. Ask, then pause. Silence is your friend \u2014 let them process and respond in their own time.",prompts:[{eyebrow:"Invite to get started",text:"Based on everything we\u2019ve discussed, I think we can really help. Would you like to get started?"},{eyebrow:"Propose a specific next step",text:"The next step to onboarding is for me to take your details down. I\u2019ll set up your profile and book in the care plan meeting."},{eyebrow:"Decision-makers",text:"Is there anyone else involved in this decision \u2014 a son, daughter, or partner \u2014 who\u2019d like to be part of the conversation?"}]}];
+var BUCKET_META={price:{label:'Price \u2014 value for money',icon:'$',short:'Price'},choice:{label:'Choice \u2014 pick their own team & services',icon:'\u2726',short:'Choice'},independence:{label:'Independence \u2014 stay in control at home',icon:'\u2302',short:'Independence'}};
+var BUCKET_KEYWORDS={price:['price','cost','cheap','expensive','fee','fees','afford','budget','money','dollar','hours','value','save','cheaper','rate','rates'],choice:['choice','choose','pick','select','who','worker','workers','carer','carers','staff','flexibil','change','control who','my own team'],independence:['independ','home','control','routine','dignity','on my own','alone','stay at home','at home','manage','self','drive','drives','driver','autonomy']};
+function detectBucket(text){if(!text)return null;var t=text.toLowerCase(),best=null,bestScore=0;for(var b in BUCKET_KEYWORDS){var score=0;BUCKET_KEYWORDS[b].forEach(function(w){if(t.indexOf(w)>=0)score++});if(score>bestScore){bestScore=score;best=b}}return best}
+var state={pos:0,notes:'',triggers:['','',''],buckets:[null,null,null],startedAt:Date.now()};
+function dominantBucket(){var tally={price:0,choice:0,independence:0};for(var i=0;i<3;i++){var tag=state.buckets[i];if(tag)tally[tag]++;else{var auto=detectBucket(state.triggers[i]);if(auto)tally[auto]+=0.5}}var best=null,bestScore=0;for(var b in tally){if(tally[b]>bestScore){bestScore=tally[b];best=b}}return bestScore>0?best:null}
+var flat=[],TOTAL=0,pos=0;
+function buildFlat(){var bucket=dominantBucket();var prevKey=flat[pos]?flat[pos].stepIdx+'.'+flat[pos].pIdx:null;flat=[];STEPS.forEach(function(s,stepIdx){var prompts=(stepIdx===2&&bucket&&s.promptsByBucket&&s.promptsByBucket[bucket])?s.promptsByBucket[bucket]:s.prompts;prompts.forEach(function(p,pIdx){flat.push({stepIdx:stepIdx,pIdx:pIdx,step:s,prompt:p,bucket:stepIdx===2?bucket:null})})});TOTAL=flat.length;if(prevKey){var found=flat.findIndex(function(f){return f.stepIdx+'.'+f.pIdx===prevKey});if(found>=0)pos=found;else pos=Math.min(pos,TOTAL)}else{pos=Math.min(pos,TOTAL)}}
+buildFlat();
+function resetCallState(){state.pos=0;state.notes='';state.triggers=['','',''];state.buckets=[null,null,null];state.startedAt=Date.now();pos=0;for(var i=1;i<=3;i++){document.getElementById('t'+i).value='';document.getElementById('tn'+i).classList.add('empty');document.querySelector('.bucket-picker[data-idx="'+(i-1)+'"]').querySelectorAll('button').forEach(function(b){b.classList.remove('active','suggested')})}document.getElementById('notes').value='';buildFlat();refreshPrimaryDriver();render();if(timerInterval)clearInterval(timerInterval);tickTimer();timerInterval=setInterval(tickTimer,1000)}
+
+// RENDER
+var progressEl=document.getElementById('progress'),stepTitleEl=document.getElementById('stepTitle'),counterEl=document.getElementById('counter'),promptAreaEl=document.getElementById('promptArea'),actionsEl=document.getElementById('actions'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),tipBoxEl=document.getElementById('tipBox'),sideGridEl=document.getElementById('sideGrid');
+function renderProgress(cs){progressEl.innerHTML='';STEPS.forEach(function(s,i){var pill=document.createElement('div');pill.className='step-pill '+(i<cs?'done':(i===cs?'active':''));pill.innerHTML='<span class="num">'+(i<cs?'\u2713':(i+1))+'</span> '+s.title.split('\u00b7')[1].trim();progressEl.appendChild(pill)})}
+function renderPrompt(){var item=flat[pos],step=item.step;stepTitleEl.textContent=step.title;var spc=flat.filter(function(f){return f.stepIdx===item.stepIdx}).length;var pis=flat.slice(0,pos+1).filter(function(f){return f.stepIdx===item.stepIdx}).length;counterEl.innerHTML='Prompt <b>'+pis+'</b> of '+spc+' \u00b7 Step '+(item.stepIdx+1)+' / 4';var bucket=item.bucket;var bb=bucket?'<div class="prompt-card__bucket-banner">'+BUCKET_META[bucket].icon+' Tuned for driver \u00b7 '+BUCKET_META[bucket].short+'</div>':'';var bc=bucket?' prompt-card--'+bucket:'';promptAreaEl.innerHTML='<div class="prompt-card'+bc+'">'+bb+'<div class="prompt-card__eyebrow">'+item.prompt.eyebrow+'</div><p class="prompt-card__quote">'+item.prompt.text+'</p><div class="prompt-card__meta"><span>Say it \u00b7 then pause \u00b7 then listen</span><span>'+(pos+1)+' / '+TOTAL+' across the whole call</span></div></div>';tipBoxEl.innerHTML='<b>Tip:</b> <span>'+step.tip+'</span>';renderProgress(item.stepIdx);prevBtn.disabled=pos===0;nextBtn.textContent=pos===TOTAL-1?'Finish call \u2192':'Next prompt \u2192';actionsEl.style.display='flex';sideGridEl.style.display='grid'}
+function renderDone(){var elapsed=formatElapsed(Date.now()-state.startedAt);progressEl.innerHTML='';STEPS.forEach(function(s){var pill=document.createElement('div');pill.className='step-pill done';pill.innerHTML='<span class="num">\u2713</span> '+s.title.split('\u00b7')[1].trim();progressEl.appendChild(pill)});stepTitleEl.textContent='Call complete';counterEl.innerHTML='Duration <b>'+elapsed+'</b>';var bucket=dominantBucket();var driverLine=bucket?'Primary driver: '+BUCKET_META[bucket].icon+' '+BUCKET_META[bucket].label:'Primary driver: (not tagged)';var triggerLines=state.triggers.map(function(t,i){if(!t||!t.trim())return null;var tag=state.buckets[i]?' ['+BUCKET_META[state.buckets[i]].short+']':'';return'  '+(i+1)+'. '+t.trim()+tag}).filter(Boolean).join('\n')||'  (none recorded)';var notesBlock=(state.notes||'').trim()||'(no notes taken)';var dateStr=new Date().toLocaleString('en-AU',{dateStyle:'medium',timeStyle:'short'});var summaryText='TRILOGY CARE \u2014 CALL SUMMARY\nDate: '+dateStr+'\nDuration: '+elapsed+'\n'+driverLine+'\n\nKEY TRIGGERS\n'+triggerLines+'\n\nNOTES\n'+notesBlock+'\n';promptAreaEl.innerHTML='<div class="prompt-card done-card"><div class="big-check">\u2713</div><h1>Nice work.</h1><p>You stepped through all 20 prompts across the 4 stages. Copy your notes below into the client\u2019s profile, then save to log this call.</p><div class="summary"><div class="summary__head"><div><div class="summary__label">Call summary</div><div class="summary__meta">Duration '+elapsed+' &middot; '+dateStr+'</div></div><button class="btn--copy" id="copyBtn" type="button"><span id="copyLabel">Copy to clipboard</span></button></div><textarea class="summary__text" id="summaryText" readonly></textarea></div><div class="zoho-sync"><div class="zoho-sync__header"><div class="zoho-sync__icon">Z</div><div><div class="zoho-sync__title">Save to Zoho CRM</div><div class="zoho-sync__subtitle">Paste the client’s Zoho lead link to save call notes directly to their profile</div></div></div><div class="zoho-sync__row"><input type="text" class="zoho-sync__input" id="zohoLink" placeholder="Paste Zoho lead link — e.g. crm.zoho.com/crm/.../Leads/4637899..."><button class="btn btn--primary zoho-sync__btn" id="zohoSaveBtn">Save to Zoho</button></div><div class="zoho-sync__status" id="zohoStatus"></div></div><div class="cta-row"><button class="btn" id="reviewBtn">\u2190 Review prompts</button><button class="btn btn--primary" id="saveBtn">Save &amp; start new call</button></div></div>';var se=document.getElementById('summaryText');se.value=summaryText;se.style.height='auto';se.style.height=Math.min(se.scrollHeight+4,520)+'px';document.getElementById('copyBtn').addEventListener('click',function(){var label=document.getElementById('copyLabel');try{navigator.clipboard.writeText(se.value).then(function(){label.textContent='Copied \u2713';setTimeout(function(){label.textContent='Copy to clipboard'},2200)})}catch(e){se.select();document.execCommand('copy');label.textContent='Copied \u2713';setTimeout(function(){label.textContent='Copy to clipboard'},2200)}});document.getElementById('reviewBtn').addEventListener('click',function(){pos=TOTAL-1;renderPrompt()});document.getElementById('saveBtn').addEventListener('click',function(){startLiveCall()});
+var zohoSaveBtn=document.getElementById('zohoSaveBtn'),zohoInput=document.getElementById('zohoLink'),zohoStatus=document.getElementById('zohoStatus');
+zohoSaveBtn.addEventListener('click',function(){
+  var link=zohoInput.value.trim();var leadId=parseLeadId(link);
+  if(!leadId){zohoStatus.className='zoho-sync__status zoho-sync__status--error';zohoStatus.textContent='Please paste a valid Zoho lead link (e.g. crm.zoho.com/crm/.../Leads/4637899...)';return}
+  zohoSaveBtn.disabled=true;zohoSaveBtn.textContent='Saving...';
+  zohoStatus.className='zoho-sync__status zoho-sync__status--loading';zohoStatus.innerHTML='<span class="zoho-spinner"></span> Saving call notes to lead '+leadId+'...';
+  var noteTitle='Sales Call Summary — '+dateStr;
+  var noteContent=se.value;
+  saveNoteToZoho(leadId,noteTitle,noteContent,function(err,result){
+    zohoSaveBtn.disabled=false;zohoSaveBtn.textContent='Save to Zoho';
+    if(err){zohoStatus.className='zoho-sync__status zoho-sync__status--error';zohoStatus.textContent='Failed to save: '+(typeof err==='string'?err:JSON.stringify(err))}
+    else{zohoStatus.className='zoho-sync__status zoho-sync__status--success';zohoStatus.innerHTML='✓ Notes saved to Zoho CRM lead (Note ID: '+result.details.id+')'}
+  })
+});
+actionsEl.style.display='none'}
+function render(){if(pos>=TOTAL)renderDone();else renderPrompt()}
+
+// INTERACTIONS
+nextBtn.addEventListener('click',function(){if(pos<TOTAL){pos++;render();scrollToTop()}});
+prevBtn.addEventListener('click',function(){if(pos>0){pos--;render();scrollToTop()}});
+document.addEventListener('keydown',function(e){if(!document.getElementById('viewLiveCall').classList.contains('active'))return;if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;if(e.key==='ArrowRight'||e.code==='Space'){e.preventDefault();nextBtn.click()}if(e.key==='ArrowLeft'){e.preventDefault();prevBtn.click()}});
+document.getElementById('notes').addEventListener('input',function(){state.notes=this.value});
+var primaryDriverEl=document.getElementById('primaryDriver'),primaryDriverValueEl=document.getElementById('primaryDriverValue');
+function refreshPrimaryDriver(){var bucket=dominantBucket();primaryDriverEl.className='primary-driver';if(bucket){primaryDriverEl.classList.add('primary-driver--'+bucket);primaryDriverValueEl.textContent=BUCKET_META[bucket].icon+' '+BUCKET_META[bucket].label}else{primaryDriverValueEl.textContent='\u2014 tag a bucket above to personalise Step 3 \u2014'}}
+function onBucketsChanged(){refreshPrimaryDriver();buildFlat();render()}
+for(var i=0;i<3;i++){(function(i){var inp=document.getElementById('t'+(i+1));var num=document.getElementById('tn'+(i+1));var picker=document.querySelector('.bucket-picker[data-idx="'+i+'"]');inp.addEventListener('input',function(){state.triggers[i]=inp.value;num.classList.toggle('empty',!inp.value.trim());if(!state.buckets[i]){var auto=detectBucket(inp.value);picker.querySelectorAll('button').forEach(function(b){b.classList.toggle('suggested',!!auto&&b.dataset.b===auto)});refreshPrimaryDriver();buildFlat();render()}});picker.addEventListener('click',function(e){var btn=e.target.closest('button');if(!btn)return;var b=btn.dataset.b;if(state.buckets[i]===b){state.buckets[i]=null;btn.classList.remove('active')}else{state.buckets[i]=b;picker.querySelectorAll('button').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}onBucketsChanged()})})(i)}
+refreshPrimaryDriver();
+document.getElementById('endBtn').addEventListener('click',function(){if(confirm('End this call now? You can still save the summary.')){pos=TOTAL;render();scrollToTop()}});
+function formatElapsed(ms){var s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;function pad(n){return String(n).padStart(2,'0')}return h>0?pad(h)+':'+pad(m)+':'+pad(sec):pad(m)+':'+pad(sec)}
+function tickTimer(){document.getElementById('timer').textContent=formatElapsed(Date.now()-state.startedAt)}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+render();
+</script>
+</body>
+</html>
