@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: sales-playbook
+    runtime: python
+    buildCommand: echo "No build needed"
+    startCommand: python3 server.py
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: GRAPH_API_BASE_URL
+        value: "https://graph.trilogycare.com.au"
+      - key: GRAPH_API_TOKEN
+        sync: false
