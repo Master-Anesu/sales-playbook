@@ -11,7 +11,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{background:var(--n-50);color:var(--n-700);font-family:var(--font-ui);font-size:14px;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
-.view{display:none}.view.active{display:block}#showLiveCall:target~#viewPlaybook.view{display:none!important}#showLiveCall:target~#viewLiveCall.view{display:block!important}
+.view{display:none}.view.active{display:block}
 .topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--n-200);padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm)}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tc-ink);cursor:pointer;background:none;border:none;padding:0;font-size:inherit}
 .brand__dot{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--tc-teal),var(--tc-teal-mid));display:grid;place-items:center;color:#fff;font-family:var(--font-brand);font-weight:700;font-size:14px;box-shadow:var(--shadow-sm)}
@@ -526,13 +526,13 @@ function saveNoteToZoho(leadId,noteTitle,noteContent,cb){
 
 // VIEW SWITCHING — all via addEventListener, no inline handlers
 var timerInterval=null;
-function startLiveCall(){location.hash='showLiveCall';document.getElementById('viewPlaybook').classList.remove('active');document.getElementById('viewLiveCall').classList.add('active');resetCallState();window.scrollTo(0,0)}
-function backToPlaybook(){if(pos>0&&pos<TOTAL){if(!confirm('Leave this call? Your progress will be lost.'))return}try{history.replaceState(null,'',location.pathname)}catch(e){location.hash=''}document.getElementById('viewLiveCall').classList.remove('active');document.getElementById('viewPlaybook').classList.add('active');if(timerInterval){clearInterval(timerInterval);timerInterval=null}window.scrollTo(0,0)}
+function startLiveCall(){location.hash='showLiveCall';var lcS=document.getElementById('viewLiveCall'),pbS=document.getElementById('viewPlaybook');pbS.classList.remove('active');lcS.classList.add('active');pbS.style.display='none';lcS.style.display='block';resetCallState();window.scrollTo(0,0)}
+function backToPlaybook(){if(pos>0&&pos<TOTAL){if(!confirm('Leave this call? Your progress will be lost.'))return}try{history.replaceState(null,'',location.pathname)}catch(e){location.hash=''}var lcV=document.getElementById('viewLiveCall'),pbV=document.getElementById('viewPlaybook');lcV.classList.remove('active');pbV.classList.add('active');lcV.style.display='none';pbV.style.display='block';if(timerInterval){clearInterval(timerInterval);timerInterval=null}window.scrollTo(0,0)}
 document.getElementById('topbarStartBtn').addEventListener('click',function(e){e.preventDefault();startLiveCall()});
 document.getElementById('heroStartBtn').addEventListener('click',function(e){e.preventDefault();startLiveCall()});
 document.getElementById('lcBrand').addEventListener('click',function(e){e.preventDefault();backToPlaybook()});
 document.getElementById('backBtn').addEventListener('click',function(e){e.preventDefault();backToPlaybook()});
-window.addEventListener('hashchange',function(){if(location.hash==='#showLiveCall'){document.getElementById('viewPlaybook').classList.remove('active');document.getElementById('viewLiveCall').classList.add('active');if(!timerInterval)resetCallState();window.scrollTo(0,0)}else{document.getElementById('viewLiveCall').classList.remove('active');document.getElementById('viewPlaybook').classList.add('active');if(timerInterval){clearInterval(timerInterval);timerInterval=null}window.scrollTo(0,0)}});
+window.addEventListener('hashchange',function(){if(location.hash==='#showLiveCall'){var lcS=document.getElementById('viewLiveCall'),pbS=document.getElementById('viewPlaybook');pbS.classList.remove('active');lcS.classList.add('active');pbS.style.display='none';lcS.style.display='block';if(!timerInterval)resetCallState();window.scrollTo(0,0)}else{var lcV=document.getElementById('viewLiveCall'),pbV=document.getElementById('viewPlaybook');lcV.classList.remove('active');pbV.classList.add('active');lcV.style.display='none';pbV.style.display='block';if(timerInterval){clearInterval(timerInterval);timerInterval=null}window.scrollTo(0,0)}});
 
 // TABS
 document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.setAttribute('aria-current',x===t?'true':'false')});document.querySelectorAll('.tab-panel').forEach(function(p){p.setAttribute('data-active',p.dataset.tab===t.dataset.tab?'true':'false')});window.scrollTo({top:0,behavior:'smooth'})})});
