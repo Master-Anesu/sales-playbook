@@ -244,6 +244,19 @@ body{background:var(--n-50);color:var(--n-700);font-family:var(--font-ui);font-s
 .bucket-variant--independence b{color:var(--b-ind-text)}
 
 @media(max-width:780px){.script-stage__body{padding:14px 16px;gap:8px}.script-line{padding:10px 12px;gap:8px;flex-wrap:wrap}.script-label{font-size:10px;padding:3px 8px}.script-bucket-note{padding:12px}}
+
+.zoho-sync{margin-top:20px;background:var(--n-50);border:1px solid var(--n-200);border-radius:var(--r-md);padding:20px;transition:border-color .2s}
+.zoho-sync:focus-within{border-color:var(--tc-teal);box-shadow:0 0 0 3px rgba(0,127,126,0.08)}
+.zoho-sync__row{display:flex;gap:10px;align-items:center}
+.zoho-sync__input{flex:1;font-family:var(--font-ui);font-size:14px;color:var(--n-700);background:#fff;border:1px solid var(--n-200);border-radius:var(--r-pill);padding:12px 20px;outline:none;transition:border-color .15s,box-shadow .15s}
+.zoho-sync__input:focus{border-color:var(--tc-teal);box-shadow:0 0 0 3px rgba(0,127,126,0.12)}
+.zoho-sync__input::placeholder{color:var(--n-400)}
+.zoho-sync__btn{white-space:nowrap}
+.zoho-sync__status{margin-top:10px;font-size:13px;border-radius:var(--r-sm);padding:0;transition:all .2s}
+.zoho-sync__status:empty{display:none}
+.zoho-sync__status--success{display:block;padding:10px 14px;background:#EAFBF0;color:#065F46;border:1px solid #B9EECB;border-radius:var(--r-sm)}
+.zoho-sync__status--error{display:block;padding:10px 14px;background:#FEF1F1;color:#991B1B;border:1px solid #FEE2E2;border-radius:var(--r-sm)}
+.zoho-sync__status--loading{display:block;padding:10px 14px;background:var(--tc-teal-50);color:var(--tc-teal-dark);border:1px solid var(--tc-teal-200);border-radius:var(--r-sm)}
 </style>
 </head>
 <body>
